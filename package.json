@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/mikemajesty/calendarjs/issues"
   },
-  "homepage": "https://github.com/mikemajesty/calendarjs#readme"
+  "homepage": "https://github.com/mikemajesty/calendarjs#readme",
+  "dependencies": {
+    "angular": "^1.2.32",
+    "express": "^4.14.0",
+    "serve-favicon": "^2.3.2"
+  }
 }
