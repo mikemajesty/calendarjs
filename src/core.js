@@ -9,7 +9,12 @@
     // var lastDay = new Date(this.getFullYear(), this.getMonth() + 1, 0);
   }
 
+  $P.test = function() {
+    var firstDay = new Date(this.getFullYear(), this.getMonth(), 1);
+    return firstDay.getDate();
+  };
+
   module.exports = {
-		getMonthDays: getMonthDays
-	}
+    getMonthDays: getMonthDays
+  }
 }());
