@@ -32,4 +32,54 @@
     return now.toLocaleDateString([], { day: 'numeric' });
   }
 
+  var getLastSunday = function(d) {
+    var t = new Date(d);
+    t.setDate(t.getDate() - t.getDay());
+    return t;
+  };
+
+  var changeDate = function(tDate) {
+
+    var start = new Date(tDate.getFullYear(), tDate.getMonth(), 1);
+    var end = new Date(tDate.getFullYear(), tDate.getMonth() + 1, 0);
+    var weeks = [];
+    var dateInitialOverload = new Date();
+    var tDay = getLastSunday(dateInitialOverload);
+    for (var index = start.getDate(); index <= end.getDate(); index++) {
+      start.setDate(index);
+      var weekDay = start.toLocaleDateString([], { weekday: 'long' });
+      weekDay = weekDay.charAt(0).toUpperCase() + weekDay.slice(1);
+      var weekDayCompare = getLastSunday(new Date()).toLocaleDateString([], { weekday: 'long' });
+      weekDayCompare = weekDayCompare.charAt(0).toUpperCase() + weekDayCompare.slice(1);
+      if (weekDay === weekDayCompare || weeks.length === 0) {
+        var week = {};
+
+        if (index === 1) {
+          for (var cont = 0; cont < 7; cont++) {
+            var dt = tDay;
+            week[start.getWeekDays()[cont]] = {};
+            dt.setDate(dt.getDate() + cont);
+          }
+        }
+        weeks.push(week);
+      }
+
+      weeks[weeks.length - 1][start.toLocaleDateString([], { weekday: 'long' }).capitalizeFirstLetter()] = {
+        date: new Date(start),
+        class: 'current-day-first cursor',
+        select: compareDate(start) ? 'hover-range-normal cursor' : 'cursor',
+        isReadyOnly: (new Date(start) > scope.endDate)
+      };
+    }
+
+    function compareDate(tDate) {
+      scope.startDate.setHours(0, 0, 0, 0);
+      scope.endDate.setHours(0, 0, 0, 0);
+      return (tDate >= scope.startDate && tDate <= scope.endDate);
+    }
+  };
+
+  module.exports = {
+    changeDate: changeDate
+  };
 }());
