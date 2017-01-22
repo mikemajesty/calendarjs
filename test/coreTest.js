@@ -8,10 +8,7 @@ describe('Core', function() {
     expect(new Date().getMonthDays()).to.equal(31);
   });
 
-  it('getWeekDays() should return 1', function() {
-    console.log('new Date().getWeekDays(): ', new Date().getWeekDays());
-    //expect().to.equal(1);
-  });
-
-  
-});
+  it('getWeekDays() should return 7', function() {
+    expect(new Date().getWeekDays().length).to.equal(7);
+  });  
+}); 
