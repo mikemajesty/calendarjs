@@ -64,19 +64,16 @@
         weeks.push(week);
       }
 
-      weeks[weeks.length - 1][start.toLocaleDateString([], { weekday: 'long' }).capitalizeFirstLetter()] = {
+      var tWeekday = start.toLocaleDateString([], { weekday: 'long' });
+      tWeekday = tWeekday.charAt(0).toUpperCase() + tWeekday.slice(1);
+      weeks[weeks.length - 1][tWeekday] = {
         date: new Date(start),
         class: 'current-day-first cursor',
-        select: compareDate(start) ? 'hover-range-normal cursor' : 'cursor',
-        isReadyOnly: (new Date(start) > scope.endDate)
+        select: 'hover-range-normal cursor',
       };
     }
 
-    function compareDate(tDate) {
-      scope.startDate.setHours(0, 0, 0, 0);
-      scope.endDate.setHours(0, 0, 0, 0);
-      return (tDate >= scope.startDate && tDate <= scope.endDate);
-    }
+    return weeks;
   };
 
   module.exports = {
